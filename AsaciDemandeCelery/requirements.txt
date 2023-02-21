@@ -1,0 +1,8 @@
+celery='5.2.7'
+Django='4.1.7'
+django-celery-results
+psycopg2
+djangorestframework
+django-filter
+django-cors-headers
+flower
