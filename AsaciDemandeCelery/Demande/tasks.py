@@ -6,6 +6,8 @@ import time
 from celery import shared_task, current_app, current_task
 from .models import Article
 from .celery import app
+
+
 @shared_task
 def add(x, y):
     return x + y
@@ -60,7 +62,7 @@ def creation_article(nom_article, description, statut):
     return id_arti
 
 
-@app.task(name='Ajout article', default_retry_delay=1 * 60)
+@app.task(name='Ajout article', default_retry_delay=1 * 60, acks_late=True)
 def creation_article_two(nom_article, description, statut):
     new_article = Article(
         nom_article=nom_article,

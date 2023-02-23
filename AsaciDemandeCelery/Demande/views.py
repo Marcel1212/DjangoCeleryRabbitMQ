@@ -17,13 +17,20 @@ def index(request):
     date_p = date_today.delay()
     date = date_today()
     # Ajout en BD
-    nom_art = 'La revenche des trouillards 6 '
+    nom_art = 'La revenche des trouillards 6'
     descrip_art = 2
     stat = False
     tache = creation_article.delay(nom_art, descrip_art, stat)
     creation_article_two.delay(nom_art, descrip_art, stat)
     # Recuperation de l'ID de la tache
     print(tache)
+    if tache.ready():
+        print('ici')
+        if tache.successful():
+            print("Result was: %s" % tache.result)
+        else:
+            print("Task failed due to raising an exception")
+            raise tache.result
     information = {
         'message': 'Succes',
         'process_id': str(moy),

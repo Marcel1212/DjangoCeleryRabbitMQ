@@ -99,6 +99,18 @@ CACHES = {
         'LOCATION': 'my_cache_table',
     }
 }
+CELERY_ALWAYS_EAGER = True
+
+CELERY_BEAT_SCHEDULE = {
+      'Tache-programme': {
+        'task': 'Demande.tasks.creation_article_two',
+        'schedule': 30.0,
+        'args': ('Tache programme', 16, True),
+        'options': {
+            'expires': 15.0,
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
