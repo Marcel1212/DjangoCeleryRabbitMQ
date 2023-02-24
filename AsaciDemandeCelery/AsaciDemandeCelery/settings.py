@@ -112,7 +112,7 @@ CELERY_BEAT_SCHEDULE = {
 		},
 	},
 	'Tache-Gene': {
-		'task': 'Ajout article',
+		'task': 'Ajout article', # 2
 		'schedule': 10.0,
 		'args': ('Ajout Art', 30, True),
 		'options': {
