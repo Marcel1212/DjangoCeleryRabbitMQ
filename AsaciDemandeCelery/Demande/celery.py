@@ -19,4 +19,17 @@ app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
-    print(f'Request: {self.request!r}')
+	print(f'Request: {self.request!r}')
+
+
+app.conf.beat_schedule = {
+	# Scheduler Name
+	'Creation du model': {
+		# Task Name (Name Specified in Decorator)
+		'task': 'creation_article',
+		# Schedule
+		'schedule': 10.0,
+		# Function Arguments
+		'args': ("Hello", 'Test', True)
+	},
+}

@@ -1,8 +1,6 @@
 from __future__ import absolute_import, unicode_literals
-
 import datetime
 import time
-
 from celery import shared_task, current_app, current_task
 from .models import Article
 from .celery import app
@@ -50,7 +48,7 @@ def creation_article(nom_article, description, statut):
     return id_arti
 
 
-@shared_task()
+@shared_task(name = "Creation Article")
 def creation_article(nom_article, description, statut):
     new_article = Article(
         nom_article=nom_article,
@@ -62,7 +60,7 @@ def creation_article(nom_article, description, statut):
     return id_arti
 
 
-@app.task(name='Ajout article', default_retry_delay=1 * 60, acks_late=True)
+@app.task(name='Ajout article')
 def creation_article_two(nom_article, description, statut):
     new_article = Article(
         nom_article=nom_article,
@@ -72,3 +70,16 @@ def creation_article_two(nom_article, description, statut):
     new_article.save()
     id_arti = new_article.id_article
     return id_arti
+
+
+@app.task(name='TacheProgramme', default_retry_delay=1 * 60, acks_late=True)
+def creation_article_cron(nom_article, description, statut):
+    new_article = Article(
+        nom_article=nom_article,
+        description=description,
+        flag_actif=statut
+    )
+    new_article.save()
+    id_arti = new_article.id_article
+    return id_arti
+

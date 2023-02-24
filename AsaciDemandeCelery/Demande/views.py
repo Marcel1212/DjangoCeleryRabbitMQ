@@ -8,8 +8,6 @@ from .tasks import calcul_moyenne, date_today, creation_article, creation_articl
 # Create your views here.
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# @login_required(login_url='/login/')
 def index(request):
     moy = calcul_moyenne.delay(int(10), int(15))
     moyenne = calcul_moyenne(int(10), int(15))
