@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 	'corsheaders',
 	'django_filters',
 	'rest_framework.authtoken',
+	'django_prometheus',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django_prometheus.middleware.PrometheusBeforeMiddleware',
+	'django_prometheus.middleware.PrometheusAfterMiddleware'
 ]
 
 ROOT_URLCONF = 'AsaciDemandeCelery.urls'
@@ -112,7 +115,7 @@ CELERY_BEAT_SCHEDULE = {
 		},
 	},
 	'Tache-Gene': {
-		'task': 'Ajout article', # 2
+		'task': 'Ajout article',  # 2
 		'schedule': 10.0,
 		'args': ('Ajout Art', 30, True),
 		'options': {
